@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OSModal Javascript Plugin</title>
+    <link rel="stylesheet" href="dist/css/osmodal.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"   integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet">
+  </head>
+  <body>
+
+
+  <div class="container">
+    <div class="col-sm-8 col-sm-offset-2">
+      <br>
+      <br>
+      <br>
+      <h1 class="text-center">OSModal | javascript modal plugin</h1>
+      <br>
+
+    </div>
+    <div class="col-sm-6 col-sm-offset-3">
+      <br>
+      <br>
+      <br>
+      <div class="text-center" id="content">
+        <p>Hello human!</p>
+        <br>
+        <p>I am <strong>OSModal</strong>. A javascript modal plugin written in plain javascript. That means, no dependecies required.</p>
+        <br>
+        <p>You can <strong>resize me</strong>, <strong>drag me</strong> and even <strong>snap me</strong> just like you would a explorer/finder window in your favourite OS</p>
+        <br>
+        <p>I am quite customizable via plugin options or css.</p>
+      </div>
+      <br>
+      <br>
+      <br>
+      <button class="center-block" id="open">Fire me up and take me for a ride</button>
+      <br>
+      <br>
+    </div>
+  </div>
+
+
+  <script src="dist/js/osmodal.min.js"></script>
+  <script>
+
+    var cnt = document.getElementById('content').innerHTML;
+
+    document.getElementById('open').onclick = function() {
+      osmodal({
+        title: 'OSModal javascipt plugin',
+        content: cnt,
+        height: 480,
+        width: 640
+      }).open();
+    };
+
+  </script>
+  </body>
+</html>

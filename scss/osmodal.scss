@@ -1,0 +1,225 @@
+@import "settings";
+@import "shame";
+
+.osm {
+
+  // component styles
+  // ----------------------------------
+  &-container {
+    background-color: rgba($clr-white, .9);
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+
+  & {
+    background-color: #fff;
+    box-shadow: 8px 8px 0 rgba($clr-black, .1);
+    border: 1px solid;
+
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+  }
+
+  &__head {
+    background-color: $clr-white;
+    border-bottom: 1px solid;
+    text-align: center;
+    line-height: 30px;
+    height: 30px;
+  }
+
+  &__ctrls {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  &__btn {
+    background-color: $clr-white;
+    border-color: $clr-black;
+    border-style: solid;
+    border-width: 0 0 1px 1px;
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    float: left;
+    position: relative;
+
+    &:hover {
+      background-color: darken($clr-white, 5%);
+    };
+
+  }
+
+  &__min {
+    &::after {
+      content: '';
+      background-color: $clr-black;
+      display: block;
+      height: 1px;
+      width: 12px;
+      margin-left: -6px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+    }
+  }
+
+  &__exp {
+    &::after {
+      content: '';
+      border: 1px solid;
+      display: block;
+      height: 12px;
+      width: 12px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+    }
+  }
+
+  &__cls {
+    &::before,
+    &::after {
+      content: '';
+      background-color: $clr-black;
+      display: block;
+      height: 1px;
+      width: 12px;
+      margin-left: -6px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+    }
+    &::before { transform: rotate(45deg); }
+    &::after { transform: rotate(-45deg); }
+  }
+
+  &__body {
+    overflow: auto;
+    padding: 12px;
+  }
+
+  &-indicator {
+    background-color: rgba($clr-black, .15);
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    opacity: 0;
+
+    &--show {
+      animation-name: indicator-animation;
+      animation-duration: .35s;
+      animation-iteration-count: 2;
+    }
+
+  }
+
+  // resize controls
+  // ----------------------------------
+  &__sizers {
+    > div {
+      position: absolute;
+    }
+  }
+
+  &__n {
+    height: $sizers-width;
+    width: 100%;
+
+    cursor: ns-resize;
+
+    top: -($sizers-width / 2);
+    left: 0;
+  }
+
+  &__ne {
+    height: ($sizers-width);
+    width: ($sizers-width);
+
+    cursor: ne-resize;
+
+    top: -($sizers-width / 2);
+    right: -($sizers-width / 2);
+  }
+
+  &__e {
+    height: 100%;
+    width: ($sizers-width);
+
+    cursor: ew-resize;
+
+    top: 0;
+    right: -($sizers-width / 2);
+  }
+
+  &__se {
+    height: ($sizers-width);
+    width: ($sizers-width);
+
+    cursor: se-resize;
+
+    bottom: -($sizers-width / 2);
+    right: -($sizers-width / 2);
+  }
+
+  &__s {
+    height: ($sizers-width);
+    width: 100%;
+
+    cursor: ns-resize;
+
+    bottom: -($sizers-width / 2);
+    left: 0;
+  }
+
+  &__sw {
+    height: ($sizers-width);
+    width: ($sizers-width);
+
+    cursor: sw-resize;
+
+    bottom: -($sizers-width / 2);
+    left: -($sizers-width / 2);
+  }
+
+  &__w {
+    height: 100%;
+    width: ($sizers-width);
+
+    cursor: ew-resize;
+
+    top: 0;
+    left: -($sizers-width / 2);
+  }
+
+  &__nw {
+    height: ($sizers-width);
+    width: ($sizers-width);
+
+    cursor: nw-resize;
+
+    top: -($sizers-width / 2);
+    left: -($sizers-width / 2);
+  }
+
+}
+
+@keyframes indicator-animation {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
