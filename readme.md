@@ -14,12 +14,12 @@ Documentation and demo can be found here:
 <script src="dist/js/osmodal.min.js"></script>
 
 <script>
-  var cnt = document.getElementById('mymodal').innerHTML;
+  var myContent = document.getElementById('mymodal').innerHTML;
 
   document.getElementById('open').onclick = function() {
     osmodal({
       title: 'OSModal title',
-      content: 'OSModal content',
+      content: myContent,
       height: 480,
       width: 640
     }).open();
