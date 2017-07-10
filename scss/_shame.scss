@@ -1,7 +1,26 @@
+@import "settings";
+
 * {box-sizing: border-box;}
 
 body {
-  // background-color: #ccc !important;
+  background-color: $clr-secondary;
+  color: $clr-primary;
   overflow: hidden;
   font-family: monospace !important;
+}
+
+button {
+  background-color: $clr-primary;
+  color: $clr-secondary;
+  border: 1px solid $clr-primary;
+
+  font-size: 1.2em;
+
+  padding: 1em;
+
+  &:hover {
+    background-color: $clr-secondary;
+    color: $clr-primary;
+  }
+
 }
