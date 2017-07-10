@@ -1,32 +1,16 @@
-(function () {
+(function() {
 
   'use strict';
 
   // ----------------------------------
   // constructor
   // ----------------------------------
-  var Modal = function () {
-
-    this.container;
-    this.modal;
-    this.head;
-    this.title;
-    this.content;
-    this.ctrls;
-    this.minBtn;
-    this.expBtn;
-    this.clsBtn;
-    this.body;
-    this.indicator;
-    this.options;
+  var Modal = function(settings) {
     this.snapped = false;
     this.expanded = false;
     this.docked = false;
 
     var defaults = {
-      title: '',
-      content: '',
-
       closeButtonLabel: 'Close modal',
       expandButtonLabel: 'Expand modal',
       restoreButtonLabel: 'Restore modal',
@@ -41,9 +25,16 @@
       minWidth: 280
     };
 
-    this.options = (arguments[0] && typeof arguments[0] === 'object') ? extendDefaults(defaults, arguments[0]) : defaults;
-
+    if (typeof settings === 'object') {
+      this.options = extendDefaults(defaults, settings)
+    } else if (settings === undefined) {
+      throw new Error('modal title and content haven\'t been passed in the settings object');
+    } else {
+      throw new Error('settings must be a valid object');
+    }
   };
+
+
 
 
   // ----------------------------------
@@ -77,6 +68,8 @@
   Modal.prototype.snap = function(pos) {
     snap.call(this, pos);
   }
+
+
 
   // ----------------------------------
   // private methods
@@ -137,8 +130,8 @@
     document.body.appendChild(frag);
   }
 
-  function resize() {
 
+  function resize() {
     var self = this;
 
     this.sizers.addEventListener('mousedown', function(e){
@@ -146,7 +139,6 @@
     });
 
     this.n.addEventListener('mousedown', function(e) {
-
       var height = getElProp(self.modal).height,
           bottom = getElProp(self.modal).bottom,
           mouseY = e.pageY;
@@ -158,11 +150,9 @@
         if (checkMinHieght) self.modal.style.height = height - (e.pageY - mouseY) + 'px';
         self.modal.style.top = '';
       };
-
     });
 
     this.s.addEventListener('mousedown', function(e) {
-
       var height = getElProp(self.modal).height,
           top = getElProp(self.modal).top,
           mouseY = e.pageY;
@@ -174,11 +164,9 @@
         if (checkMinHieght) self.modal.style.height = height + (e.pageY - mouseY) + 'px';
         self.modal.style.bottom = '';
       };
-
     });
 
     this.w.addEventListener('mousedown', function(e) {
-
       var width = getElProp(self.modal).width,
           right = getElProp(self.modal).right,
           mouseX = e.pageX;
@@ -190,11 +178,9 @@
         if (checkMinWidth) self.modal.style.width = width - (e.pageX - mouseX) + 'px';
         self.modal.style.left = '';
       };
-
     });
 
     this.e.addEventListener('mousedown', function(e) {
-
       var width = getElProp(self.modal).width,
           left = getElProp(self.modal).left,
           mouseX = e.pageX;
@@ -206,11 +192,9 @@
         if (checkMinWidth) self.modal.style.width = width + (e.pageX - mouseX) + 'px';
         self.modal.style.right = '';
       };
-
     });
 
     this.ne.addEventListener('mousedown', function(e) {
-
       var height = getElProp(self.modal).height,
           bottom = getElProp(self.modal).bottom,
           mouseY = e.pageY,
@@ -230,11 +214,9 @@
         if (checkMinWidth) self.modal.style.width = width + (e.pageX - mouseX) + 'px';
         self.modal.style.right = '';
       };
-
     });
 
     this.se.addEventListener('mousedown', function(e) {
-
       var height = getElProp(self.modal).height,
           top = getElProp(self.modal).top,
           mouseY = e.pageY,
@@ -254,11 +236,9 @@
         if (checkMinWidth) self.modal.style.width = width + (e.pageX - mouseX) + 'px';
         self.modal.style.right = '';
       };
-
     });
 
     this.sw.addEventListener('mousedown', function(e) {
-
       var height = getElProp(self.modal).height,
           top = getElProp(self.modal).top,
           mouseY = e.pageY,
@@ -278,11 +258,9 @@
         if (checkMinWidth) self.modal.style.width = width - (e.pageX - mouseX) + 'px';
         self.modal.style.left = '';
       };
-
     });
 
     this.nw.addEventListener('mousedown', function(e) {
-
       var height = getElProp(self.modal).height,
           bottom = getElProp(self.modal).bottom,
           mouseY = e.pageY,
@@ -302,10 +280,9 @@
         if (checkMinWidth) self.modal.style.width = width - (e.pageX - mouseX) + 'px';
         self.modal.style.left = '';
       };
-
     });
 
-    (this.sizers && window).addEventListener('mouseup', function(){
+    (this.sizers && window).addEventListener('mouseup', function() {
       if (!self.snapped) storeSize.call(self);
       window.onmousemove = null;
     });
@@ -313,13 +290,11 @@
   };
 
   function drag() {
-
     var self = this;
 
     this.head.style.cursor = 'move';
 
     this.head.addEventListener('mousedown', function(e) {
-
       e.preventDefault();
 
       var mousePosX = e.clientX,
@@ -350,11 +325,9 @@
         }
 
       }
-
     });
 
     window.addEventListener('mouseup', function(e){
-
       window.onmousemove = null;
 
       if (e.pageX <= 0) {
@@ -366,13 +339,11 @@
       } else {
         self.snapped = false;
       }
-
     });
-
   }
 
-  function snap(pos) {
 
+  function snap(pos) {
     storeSize.call(this);
 
     this.modal.style.height = '100%';
@@ -393,12 +364,14 @@
     this.snapped = true;
   }
 
+
   function indicatorPos(e) {
     var self = this;
     this.indicator.classList.add('osm-indicator--show');
     self.indicator.style.top = e.clientY - (getElProp(self.indicator).height / 2) + 'px';
     self.indicator.style.left = e.clientX - (getElProp(self.indicator).width / 2) + 'px';
   }
+
 
   function expand() {
     storeSize.call(this);
@@ -414,12 +387,14 @@
     this.expanded = true;
   }
 
+
   function restore() {
     applySize.call(this);
     applyPosition.call(this);
     this.expBtn.title = this.options.expandButtonLabel;
     this.expanded = false;
   }
+
 
   function dock() {
     storeSize.call(this);
@@ -429,31 +404,37 @@
     this.docked = true;
   }
 
+
   function undock() {
     applySize.call(this);
     applyPosition.call(this);
     this.docked = false;
   }
 
+
   function storeSize() {
     this.options.height = getElProp(this.modal).height;
     this.options.width = getElProp(this.modal).width;
   }
+
 
   function applySize() {
     this.modal.style.height = this.options.height + 'px';
     this.modal.style.width = this.options.width + 'px';
   }
 
+
   function storePosition() {
     this.options.top = getElProp(this.modal).top;
     this.options.left = getElProp(this.modal).left;
   }
 
+
   function applyPosition() {
     this.modal.style.top = this.options.top + 'px';
     this.modal.style.left = this.options.left + 'px';
   }
+
 
   function getElProp(element) {
     var rect = element.getBoundingClientRect(),
@@ -470,6 +451,7 @@
     };
   }
 
+
   function createEl(el, cl, ap) {
     var x;
     x = document.createElement(el);
@@ -480,17 +462,19 @@
     return x;
   }
 
-  function extendDefaults (source, properties) {
+
+  function extendDefaults (defaults, settings) {
     var property;
 
-    for (property in properties) {
-      if (properties.hasOwnProperty(property)) {
-        source[property] = properties[property];
+    for (property in settings) {
+      if (settings.hasOwnProperty(property)) {
+        defaults[property] = settings[property];
       }
     }
 
-    return source;
+    return defaults;
   }
+
 
   function initialiteEvents () {
     this.clsBtn.addEventListener('click', this.close.bind(this));
@@ -498,8 +482,10 @@
     this.expBtn.addEventListener('click', this.expand.bind(this));
   }
 
+
+
+
   window.osmodal = function (selector, settings) {
     return new Modal(selector, settings);
   };
-
 })();
